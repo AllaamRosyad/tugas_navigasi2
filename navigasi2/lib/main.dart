@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:navigasi2/home.dart';
 
 void main() {
   runApp(const MaterialApp(
@@ -12,21 +13,44 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Hello Navigation Drawer")),
+      bottomNavigationBar: BottomNavigationBar(
+          onTap: (value) {
+            print(value);
+            if (value == 0) {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const Homepage()),
+              );
+            } else if (value == 1) {
+              //pergi ke account
+            }
+          },
+          items: const [
+            BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.account_balance), label: "Account")
+          ]),
+      appBar: AppBar(title: const Text("Hello Navigation Drawer")),
       drawer: Drawer(
         child: ListView(
           children: [
-            DrawerHeader(
+            const DrawerHeader(
               decoration: BoxDecoration(
                 color: Colors.blue,
               ),
               child: Text('Drawer Header'),
             ),
             ListTile(
-              leading: Icon(Icons.home),
-              title: Text("Home"),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const Homepage()),
+                );
+              },
+              leading: const Icon(Icons.home),
+              title: const Text("Home"),
             ),
-            ListTile(
+            const ListTile(
               leading: Icon(Icons.exit_to_app),
               title: Text("Logout"),
             )
